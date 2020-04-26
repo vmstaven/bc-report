@@ -1,0 +1,251 @@
+%Style sheet med alle usepackage
+
+
+\usepackage[numbib,nottoc]{tocbibind}
+%\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup[subfloat]{hangindent = 18pt}
+
+\usepackage{url}
+
+
+%Kommentarer
+%Man kan kommenterer linjer ud ved at bruge "%" så man kan forklare hvad en funktion eller diverse gør. Som denne linje. Nu ved jeg godt at det skaber en masse larm om man så kan printe "%". Ja det kan man godt, det gør man ved at skrive "\%".
+
+%============================================================================
+%Links
+%Hvis man vil vise et link skal man bruge "$" både før og efter url adressen.
+%Hvis man vil lave noget mere advanceret så se "usepackage{hyperref}"
+
+%===========================================================================
+%============== Userpackages ===============================================
+%===========================================================================
+
+\usepackage[english]{babel}
+
+%Denne package ændre sproget til dansk så indholdfortegnelse og den slags er dansk. Hvis man fjerner "[danish]" vil dokumentet bare være på engelsk. Man kan godt kommenterer hele usepackage ud, men det anbefaldes at man kun fjerner "[danish]".
+
+%===========================================================================
+\usepackage[utf8]{inputenc}
+%Denne package gør at man kan printe "æ", "ø" & "å".
+
+%===========================================================================
+
+\usepackage{siunitx}
+% Denne pakke gør at SI enheder ser ebdre ud i equations.
+%===========================================================================
+\usepackage[pdftex]{graphicx}
+%Denne package gør at man kan indsætte et billede i dokumentet.
+%Her er et link til hvordan denne package virker: "http://mirrors.dotsrc.org/ctan/macros/latex/required/graphics/grfguide.pdf"
+
+
+%===========================================================================
+\usepackage{wrapfig}
+%Denne pakke gøre at tekst kan 'wrappe' om billeder og figurtekster
+%===========================================================================
+\usepackage{amsmath}
+%Denne package gør at man kan lave pæne matematiske opsætninger af formler.
+%Her er et link til hvordan denne package virker: "ftp://ftp.ams.org/ams/doc/amsmath/amsldoc.pdf".
+
+%===========================================================================
+%\usepackage[euler]{textgreek}
+%http://texblog.org/2012/03/15/greek-letters-in-text-without-changing-to-math-mode/
+
+%===========================================================================
+\usepackage{hyperref}%hidelinks
+%Denne package tilføjer kommandoer som gør at man kan lave hyperlinks. Den gør dog også at table of content bliver hyperlink som giver røde kasser.
+%For at fjerne de røde kasser, kan man tilføjes "[hidelinks]" foran. Eller man kan bruge funktionen under her. "hypersetup" styrer farven på links i dokumentet og man kan definerer forskellige farver til forskellige links.
+\hypersetup{
+					colorlinks,
+					linkcolor={black},
+					citecolor={blue!50!black},
+					urlcolor={blue!80!black},
+					}
+%Dette gør at farverne på link er defineret.
+%Her er et link til hvordan denne package virker: "http://mirrors.dotsrc.org/ctan/macros/latex/contrib/hyperref/doc/manual.pdf".
+
+
+%===========================================================================
+\usepackage{todonotes}
+%Denne package laver en to do liste så man kan holde styr på hvad der skal skrives. Der kan ikke laves todo{liste} uden for selve dokumentet, altså todo funktion kan KUN bruges imellem "begin{document}" og "end{document}".
+
+%===========================================================================
+%\usepackage{siunitx}
+%Denne package bruges til at skrive SI enheder så det kommer til at se helt rigtigt og pænt ud. SI enhederne skal skrives som man normalt ville, og så finder denne package selv ud af hvordan den skal sætter op.
+%Her er et link til hvordan denne package virker: "http://mirrors.dotsrc.org/ctan/macros/latex/contrib/siunitx/siunitx.pdf".
+
+%===========================================================================
+%\usepackage[version=3]{mhchem}
+%Denne package kan bruges til at skrives pæne kemi opskrivninger.
+%Her er et link til hvordan denne package virker: "http://mirrors.dotsrc.org/ctan/macros/latex/contrib/mhchem/mhchem.pdf".
+
+%===========================================================================
+\usepackage{tikz}
+%Denne package gør at man kan tegne skitser og figure i latex.
+
+%===========================================================================
+\usepackage[textfont={rm, it}, labelfont={bf}]{caption}
+\captionsetup[figure]{labelfont=bf, textfont=it}
+\captionsetup[table]{labelfont=bf, textfont=it}
+%Definer hvordan figur tekster ser ud.
+%Her er et link til hvordan denne package virker: "http://mirrors.dotsrc.org/ctan/macros/latex/contrib/caption/caption-eng.pdf".
+
+%===========================================================================
+\usepackage{float}
+%Styrer hvordan ting floater i dokumentet.
+%Se følgende link for at finde mere om denne package
+%http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+
+%===========================================================================
+%\usepackage{mathtools}
+
+\usepackage{expl3}
+
+%===========================================================================
+\usepackage{subfig}
+%Her er et link til hvordan denne package virker: "http://mirrors.dotsrc.org/ctan/macros/latex/contrib/subfig/subfig.pdf".
+
+%===========================================================================
+\usepackage{sidecap}
+%Ligger caption teksten ud til højre side istedet for at placerer teksten under.
+
+%===========================================================================
+\usepackage{placeins}
+%\FloatBarrier
+
+%===========================================================================
+\usepackage{subfiles}
+
+
+%===========================================================================
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0mm}
+
+% ===========================================================================
+%\usepackage{titlesec}
+%\titlespacing{command}{left}{before-sep}{after-sep}[right-sep]
+%\titlespacing\section {0pt}{15pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+%\titlespacing\subsection {0pt}{15pt plus 4pt minus 2pt}{2pt plus 2pt minus 2pt}
+%\titlespacing\subsubsection {0pt}{15pt plus 4pt minus 2pt}{2pt plus 2pt minus 2pt}
+
+% ===========================================================================
+% ========================= Recolor Section Titles ==========================
+% ===========================================================================
+%\usepackage{xcolor}
+%\definecolor{ProjectBlue}{RGB}{0,60,86}
+%\usepackage{sectsty}
+%\sectionfont{\color{ProjectBlue}}
+%\renewcommand{\familydefault}{cmr}
+
+%===========================================================================
+\usepackage{listings}
+\lstset{language=TeX,
+	basicstyle=\footnotesize,
+	tabsize=4,
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	numbersep=5pt}
+%Her er et link til hvordan denne package virker: "http://mirrors.dotsrc.org/ctan/macros/latex/contrib/listings/listings.pdf".
+
+%one inch + \hoffset
+%one inch + \voffset
+%\oddsidemargin = 10pt
+%\topmargin = 20pt
+%\headheight = 12pt
+%\headsep = 25pt
+%\textheight = 592pt
+%\textwidth = 440pt
+%\marginparsep = 10pt
+%\marginparwidth = 10pt
+%\footskip = 30pt
+%\marginparpush = 7pt (not shown)
+%\hoffset = 0pt
+%\voffset = 0pt
+%\paperwidth = 597pt
+%\paperheight = 845pt
+
+
+
+%===========================================================================
+%============== Kommandoer ================================================
+%===========================================================================
+%Undgå at lave dobbelt arbejde med kommandoer:
+%Kommandoer:
+%\newcommand{\sayhello}[1]{Hello #1!}
+%"sayhello" er navnet, "[1]" er antalet af kommandoer, "{}" skriver hvad der er inde i og "#" er det første argument.
+
+%===========================================================================
+%Generel opbygning af kommandoer:
+%\commandname
+%\commandname{required}
+%\commandname{required}{required}
+%\commandname[optional]{required}
+%\commandname[optional]{required}{required}
+
+%Eks:
+%\newcommand{•}{•}
+
+%Laver en vandret linje over hele siden
+\newcommand{\Line}{\noindent\underline{\hspace{\textwidth}}\vspace{0.25cm}\\}
+\newcommand{\Under}{\noindent\underline{\hspace{\textwidth}}\vspace{0.75cm}\\}
+
+%===========================================================================
+\addtolength\textheight{2cm}
+\addtolength\topmargin{-1cm}
+\addtolength\marginparwidth{1.5cm}
+%\parindent{}
+\setlength\parindent{0pt}
+\addtolength\headheight{1.6pt}
+% Øg teksthøjden med 2 cm på alle sider
+
+
+%===========================================================================
+\numberwithin{equation}{section}
+\usepackage[headheight=14pt, top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+
+
+%===========================================================================
+%============== Setting up fancy headers ... ===============================
+%===========================================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+\lhead{\korttitel}
+\chead{}
+\rhead{\nouppercase{}}
+\lfoot{}%\forfattere
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+% Holder styr på sidehoved og side fod.
+%Her er et link til hvordan denne package virker: "http://mirrors.dotsrc.org/ctan/macros/latex/contrib/fancyhdr/fancyhdr.pdf".
+
+%===========================================================================
+%================= Allow the use of \includesvg, via inkscape===============
+%===========================================================================
+\usepackage{calc}
+\usepackage{import}
+
+\newcommand{\executeiffilenewer}[3]{%
+\ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+{\pdffilemoddate{#2}}>0%
+{\immediate\write18{#3}}\fi%
+}
+\newcommand{\includesvg}[2][./]{%
+\executeiffilenewer{#1#2.svg}{#1#2.pdf}
+{inkscape -z -D --file=#1#2.svg --export-pdf=#1#2.pdf --export-latex}
+\import{#1}{#2.pdf_tex}
+}
+% ex. \includesvg[images/]{image} Trailing slash er vigtigt for stien
+% Kilde: http://ctan.math.utah.edu/ctan/tex-archive/info/svg-inkscape/InkscapePDFLaTeX.pdf
+% Størrelse kan blive sat med \def\svgwidth{<size>} eller \def\svgscale{<scale>} umiddelbart før \includesvg
+
+
+%===========================================================================
+%================= Library to make timing diagrams in tikz =================
+%===========================================================================
+\usepackage{tikz-timing}
+%\tikzset{timing/font={\normalfont}}
+%Source: https://www.ctan.org/pkg/tikz-timing

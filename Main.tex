@@ -1,0 +1,53 @@
+\input{.path.tex}
+\documentclass[11pt,a4paper,fleqn]{article}
+%=====================
+%=== Indlæser preamble
+%=====================
+
+\input{\main/Layout}
+\input{\main/Formalier}
+
+
+
+%==========================
+%=== Alt indhold ligger her
+%==========================
+
+\begin{document}
+
+
+%===========
+%=== Forside
+%===========
+\subfile{afsnit/Forside}
+\newpage
+
+
+%=======================
+%=== Indholdsfortegnelse
+%=======================
+\tableofcontents
+\newpage
+
+%===================
+%=== Alle afsnit her
+%===================
+\subfile{afsnit/Indledning}
+
+\subfile{afsnit/ai/main_ai.tex}
+\newpage
+
+\subfile{afsnit/cv/cv_main.tex}
+
+\subfile{afsnit/rob/main_rob.tex}
+
+\newpage
+
+\bibliography{Bibliografi}{}
+\bibliographystyle{plain}
+
+\subfile{afsnit/appendix/main_appendix.tex}
+
+
+
+\end{document}
