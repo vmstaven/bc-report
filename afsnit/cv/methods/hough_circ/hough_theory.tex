@@ -1,0 +1,19 @@
+\documentclass[../../../../main.tex]{subfile}
+
+\begin{document}
+
+\section{Hough Transform - Theory}
+
+As detection of marbles can be reduced to the problem of detecting certain shapes in an image, edge detection is key. For this to be possible the contrast between object and scene is crucial. 
+When applying the Hough transform, the image given is converted to greyscale making edges easier to detect. 
+By detecting the points making up the contour, these can now be converted into Hough space, by taking the angle to the point $\theta$
+and the distance to the image's grid's origin $s$.\\
+Plotting these points in Hough space results in a new sinusoids for each point. These sinusoids will then group of sinusoids with similar frequency, 
+resulting in $n$ number of sinusoid groups. The maxima of each group then represents the parameters best describing the shape. As an example we look at a straight line, which we will describe by the following model.
+$$i\cdot \cos(\theta) + j\cdot \sin(\theta) = s$$
+by applying this model to the points $(i,j)$ the line parameters best describing this edge, can be found in the corresponding Hough space. Since the shape here searched for is a circle, the model here used is as follows:
+$$ (i-a)^2 + (j-b)^2 = r^2 $$
+The Hough space
+The maxima for each group of sinusoids, corresponds to the line formula best representing the edge found. Since the shape we want to find depends on its center $(a,b)$ and radius $r$, three parameters are unknown. To solve this problem, either the radius must be known, which in this project it is not the case, or a three dimensional representation of the Hough space must be applied. The maxima for this three dimensional sheet will then represent the center coordinates and the circle radius bes representing the curved edge found. Based on this theoretical background the OpenCV function HoughCircles() detects and returns a vector of the $x$-coordinate, $y$-coordinate and radius for each circle detected.   
+
+\end{document}

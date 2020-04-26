@@ -1,0 +1,46 @@
+\documentclass[../../../../main.tex]{subfile}
+
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{listings}
+\begin{document}
+
+\section{Hough Transform - Implementation}
+
+As a way of implementing the Hough transform the OpenCV function HoughCircles() is used.
+
+\begin{lstlisting}
+HoughCircles(src_gray, circles_list, CIRC_DETECT_METHOD,inv_resol_ratio,u_Canny_det)
+\end{lstlisting}
+
+By observing the camera image, a large proportion of noise can be seen. To reduce the effect of this, a Gaussian filter with a mask size of 5 is applied with GaussianBlur().
+The image from the camera is then converted to grayscale and used in HoughCircles(). \\
+
+For appropriate use this method, default inputs are used for the circle list, detection method, inverse ratio of solution, Canny detection's upper threshold, minimum radius and maximum radius.\\
+
+Therefore the tuned values are the minimal distance between circles and the threshold for center detection.\\
+
+When determining threshold for center detection, it is important to consider the instability of the Hough transform. Therefore the value of center detection is tuned to reduce this instability, resulting in a more robust evaluation of contrast in the image, when detecting marble edges.\\
+
+The tuning has greatly reduced the number of false positive cirlces detected. When testing the performance of this tuning, another challenge surfaces.
+When the distance between marbles are either very short, or the agent are close enough to a marble that it takes up most of the scene. If the case where the distance between marbles are short are met, the Hough transform seems to flicker between the marbles, thus causing the agent to move in a sinusoidal pattern. When getting too close to a marble the instability of the Hough transform becomes more influential and a large number of widespread Hough circles are detected. To solve both of these problems, the parameter determining the distance between marbles we wish to detect is tuned.\\
+Now having tuned these parameters, the results can be seen applied on different colors on figure [figure number] and [figure number].
+
+
+%%Mit foreslag. 
+There are two challenges, one being that when there is a very small distance between the marbles, the Hough transform seems to flicker between the marbles, thus causing the agent to move in a sinusoidal pattern. The other variation is when the agent are close enough to a marble that it takes up most of the scene, the instability of the Hough transform becomes more influential and a large number of widespread Hough circles are detected. To solve both of these problems, the parameter determining the distance between marbles we wish to detect is tuned.\\
+Now having tuned these parameters, the results can be seen applied on different colors on figure [figure number] and [figure number].
+
+
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\centering
+\includegraphics[width=.98\linewidth]{hough_detect_colors.png}
+\caption{A caption}
+\end{wrapfigure}
+\blindtext
+
+
+
+
+\end{document}

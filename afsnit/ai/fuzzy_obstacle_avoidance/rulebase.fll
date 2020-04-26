@@ -1,0 +1,63 @@
+#File: ObstacleAvoidance.fll
+Engine: ObstacleAvoidance
+InputVariable: distance
+  enabled: true
+  range: 0.000 1.000
+  lock-range: false
+	term: close Ramp 1.000 0.000
+	term: far Ramp 0.000 1.000
+InputVariable: obstacle
+  enabled: true
+  range: 0.000 1.000
+  lock-range: false
+  term: left Ramp 1.000 0.000
+  term: right Ramp 0.000 1.000
+InputVariable: erroryaw
+  enabled: true
+  range: -3.15 3.15
+  lock-range: false
+  term: right Ramp 0.000 -3.15
+  term: left Ramp 0.000 3.15
+	term: center Triangle -1 0 1
+OutputVariable: mSteer
+  enabled: true
+  range: 0.000 1.000
+  lock-range: false
+  aggregation: Maximum
+  defuzzifier: Centroid 100
+  default: nan
+  lock-previous: false
+  term: left Ramp 1.000 0.000
+  term: right Ramp 0.000 1.000
+	term: straight Gaussian 0.5 0.1666
+OutputVariable: velocity
+	enabled: true
+	range: 0.000 1.000
+	lock-range: false
+	aggregation: Maximum
+  defuzzifier: Centroid 100
+  default: nan
+  lock-previous: false
+  term: fast Ramp 1.000 0.000
+  term: slow Ramp 0.000 1.000
+RuleBlock: ObstacleAvoidance
+  enabled: true
+  conjunction: Minimum
+  disjunction: none
+  implication: AlgebraicProduct
+  activation: General
+  rule: if obstacle is left then mSteer is right
+  rule: if obstacle is right then mSteer is left
+  rule: if distance is close then velocity is slow
+  rule: if distance is far then velocity is fast
+RuleBlock: MarbleCatcher
+  enabled: false
+  conjunction: Minimum
+  disjunction: none
+  implication: AlgebraicProduct
+  activation: General
+  rule: if erroryaw is left then mSteer is right
+  rule: if erroryaw is right then mSteer is left
+  rule: if erroryaw is center then mSteer is straight
+  rule: if erroryaw is center then velocity is fast
+  rule: if erroryaw is not center then velocity is slow

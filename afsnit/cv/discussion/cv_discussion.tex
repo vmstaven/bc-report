@@ -1,0 +1,22 @@
+\documentclass[../../../main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Discussion}
+\label{sec:cv_discussion}
+Given the algorithms implemented and described in section \ref{sec:cv_cont_bgp_impl}, quality of results together with improvement possibilities are discussed in this section.\\
+
+% Quality of data - What can be seen and deducted
+To first consider the results shows in section \ref{sec:cv_hough_impl}, 
+As expected the marbles being different colors are not the attribute effecting marble detection the most, instead it is the contrast and with great certainty marbles can now be found.\\
+As a non optimal attribute of the algorithms used a small uncertainties occur do to the instability in the Hough transform.\\
+To solve this problem and optimize performance a combination of the methods described in section \ref{sec:cv_cont_bgp_impl} and the previous could be applied for future implementation.\\
+The method here would determine the location of the marble with the use of \texttt{HoughCircles()}, thus center and radius are determined.
+Based then on radius and center a ROI i chosen within the found circle. The found ROI would then be used for background projection, 
+thus being able to detect the actual colors within the marble. Having done this the image can be converted to binary and a contour can be found.\\
+By applying this method marble detection would be independent of marble colors, while having the contour accuracy.\\
+If further precision would be needed, camshift can be added by applying the OpenCV function \texttt{CamShift()}. 
+By passing \texttt{CamShift()} the previous frame, the current frame and some ROI for analysis, movement can be compensated for such that a more smooth
+following of the marbles when the robot i moving is achieved.\\ 
+
+\end{document}

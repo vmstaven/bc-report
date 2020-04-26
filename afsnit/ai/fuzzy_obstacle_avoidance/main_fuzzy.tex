@@ -1,0 +1,184 @@
+\documentclass[../../../Main.tex]{subfiles}
+\begin{document}
+
+In this section the implementation of obstacle avoidance using fuzzy control will be described.\\
+
+Requirements
+\begin{itemize}
+	\item Avoid simple local obstacles while maintaining course towards
+		the robots short-term goal.
+\end{itemize}
+
+\subsubsection{Design}%
+\label{ssub:design}
+
+The primary focus of the fuzzy controller is that it does not make sense to avoid an
+obstacle that is to the left when going straight. To accommodate it makes sense to look at
+a rectangle with a width equal or greater than the width of the robot. The controller also needs
+to be able to steer towards a goal, so the controller should also needs to be aware of obstacles
+in its immediate vicinity to determine whether it is safe to turn towards its goal.
+The described zones can be seen in figure \ref{fig:ai:avoidance_area}.
+
+
+\begin{figure}[h]
+	\centering
+	\def\svgwidth{0.2\textwidth}
+	\includesvg[\main/afsnit/ai/fuzzy_obstacle_avoidance/img/]{avoidance_area}
+	\caption{Zones of interest for obstacle avoidance with coordinate system.
+	Blue is the immediate obstacle avoidance zone.
+	Red is the implicit avoidance zone.}
+	\label{fig:ai:avoidance_area}
+\end{figure}
+
+
+\subsubsection{Implementation}%
+\label{ssub:implementation}
+
+\paragraph{Preprocessed input data}%
+\label{par:preprocessed_input_data}
+The lidar data return polar coordinates. 
+These are transformed into the cartesian coordinates seen in figure \ref{fig:ai:avoidance_area}.
+
+\paragraph{Fuzzy input variables}%
+\label{par:fuzzy_input_variables}
+\begin{itemize}
+	\item \textit{Distance} \\
+		\textit{Distance} is the smallest y coordinate in the interval $0\si{m} \leq y \leq 1\si{m}$.\\
+		\textit{Distance}  also implements the following terms:
+		\begin{itemize}
+			\item Close\\
+				a ramp function got from (0,1) to (0,1,).
+			\item Far\\
+				a ramp function going from (0,0) to (1,1).
+		\end{itemize}
+
+	\item \textit{Obstacle} \\
+		\textit{Obstacle} is the total center of mass of any objects in the
+		immediate avoidance zone (see figure \ref{fig:ai:avoidance_area}).\\
+		\textit{Obstacle} makes use of the following terms:
+		\begin{itemize}
+			\item Left\\
+				a ramp function got from (0,1) to (0,1,).
+			\item Right\\
+				a ramp function going from (0,0) to (1,1).
+		\end{itemize}
+	\item \textit{ErrorYaw} \\
+		\textit{ErrorYaw} is the difference between the robots global orientation from the orientation
+		required for the robot to look straight at its goal.\\
+		\textit{ErrorYaw} makes us of the following terms:
+		\begin{itemize}
+			\item Left\\
+				a ramp function going from (0,0) to (3.15,1).
+			\item Right\\
+				a ramp function going from (-3.15,1) to (0,0).
+			\item Center\\
+				a triangle function going from (-1,0) to (0,1) to (1,0).
+		\end{itemize}
+\end{itemize}
+
+
+
+%\begin{figure}[h]
+%	\centering
+%	\def\svgwidth{\textwidth}
+%	\includesvg[\main/afsnit/ai/fuzzy_obstacle_avoidance/img/]{lidar_sensor}
+%	\caption{lidarsen}
+%	\label{fig:ai:lidar_sensor_format}
+%\end{figure}
+
+\paragraph{Fuzzy output variables}%
+\label{par:output_variables}
+\begin{itemize}
+	\item \textit{Velocity} \\
+		\textit{Velocity} is the velocity of the robot.
+	\item \textit{mSteer} \\
+		\textit{mSteer} is the angular acceleration of the robot.
+\end{itemize}
+
+\paragraph{Rule base}%
+\label{par:rulebase}
+
+To avoid a weird wiggle while driving along obstacles that intersects with the direct path to goal, 
+2 rule bases are used.\\
+The rule base seen in listing \ref{lst:ai:obsav} is responsible for obstacle avoidance and is not
+active when within 1 meter of the goal.\\
+The rule base seen in listing \ref{lst:ai:marbcatch} is responsible for steering towards the goal
+and it is active when nothing is in the implicit avoidance zone and nothing is in the
+immediate avoidance zone.\\
+Rule base 1 is active when the robot is not in the vicinity of its goal.
+Rule base 2 is active when rule base 1 is not or when there is no obstacle in the implicit
+avoidance zone.
+
+\lstinputlisting[
+	caption=Rulebase for obstacle avidance,
+	label=lst:ai:obsav,
+	firstline=49,
+	lastline=52]{%
+	\main/afsnit/ai/fuzzy_obstacle_avoidance/rulebase.fll} 
+
+\lstinputlisting[
+	caption=Rulebase for going towards goal,
+	label=lst:ai:marbcatch,
+	firstline=60]{%
+	\main/afsnit/ai/fuzzy_obstacle_avoidance/rulebase.fll} 
+
+\subsubsection{Tests}%
+\label{ssub:activation}
+
+\begin{figure}[h]
+  \centering
+	\makebox[\textwidth][c]{
+		\subfloat{
+			\def\svgwidth{0.6\textwidth}
+			\includesvg[\main/afsnit/ai/fuzzy_obstacle_avoidance/img/]{ObsDisSpeed}
+		}
+		\subfloat{
+			\def\svgwidth{0.6\textwidth}
+			\includesvg[\main/afsnit/ai/fuzzy_obstacle_avoidance/img/]{ObsDisSteer}
+		}
+	}
+  \caption{Activation degree for obstacle avoidance rule base}
+	\label{fig:fuzzy:activation}
+\end{figure}
+
+As can be seen in figure \ref{fig:fuzzy:activation} the exact location of the obstacle does not
+affect the speed of the robot only the distance. Likewise is the steer variable not affected by
+the distance. This should also be apparent from the rule base in listing \ref{lst:ai:obsav}.
+
+
+\begin{figure}[H]
+  \centering
+	\makebox[\textwidth][c]{
+		\subfloat{
+			%\def\svgwidth{0.6\textwidth}
+			\includesvg[\main/afsnit/ai/fuzzy_obstacle_avoidance/img/]{SpeErr}
+		}
+		\subfloat{
+			%\def\svgwidth{0.6\textwidth}
+			\includesvg[\main/afsnit/ai/fuzzy_obstacle_avoidance/img/]{SteErr}
+		}
+	}
+
+	\subfloat{
+		\def\svgwidth{0.6\textwidth}
+		\includesvg[\main/afsnit/ai/fuzzy_obstacle_avoidance/img/]{SteSpeErr}
+	}
+  \caption{Activation degree for marble catcher rule base}
+	\label{fig:fuzzy:activationMarb}
+\end{figure}
+
+In figure \ref{fig:fuzzy:activationMarb} the activation degree for  the marble catcher rule base 
+can be seen. The two rule bases are displayed independently of each other as they are never active at the same time.
+
+\subsubsection{Discussion \& Conclusion}%
+\label{ssub:discusion}
+
+
+A weakness of this controller is if there is an obstacle within 1 meter of the short-term goal of
+the robot as this would obstacle would not be detected and would therefore not be avoided.\\
+An improvement could be to look in the direction of the goal and see if there is an obstacle that
+needs to be avoid, similar to the bug3 algorithm.
+
+
+
+\end{document}

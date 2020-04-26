@@ -1,0 +1,20 @@
+\documentclass[../../main.tex]{subfile}
+
+\begin{document}
+
+\section{Introduction}
+
+As the vision segment of this project, the goal is to determine the method which leads to
+the best detection of the marbles within the simulated area. Describing a methods as the best 
+is here determined by its ability to fulfill the given criteria.\\
+From the criteria specified in [SECTION NAME FOR CRITERIA] its known that marbles of all colors must be detected
+adequately with the contrast between object and scene in mind, such that the agent can act intelligently based on this. Since it is the case that the agent needs a single
+$x$-value based on the marbles location in the camera image, the $x$-coordinate of the detected marble's center is chosen to
+be sent to the agent, combined with a boolean, depending on rather or not a marble has been detected.\\
+The methods chosen to test for marble detection are as follows.
+\begin{itemize}
+    \item Hough transform.
+    \item Background projection and contour detection.
+\end{itemize}
+
+\end{document}

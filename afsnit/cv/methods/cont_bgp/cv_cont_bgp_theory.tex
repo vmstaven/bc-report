@@ -1,0 +1,23 @@
+\documentclass[../../../../main.tex]{subfiles} 
+\begin{document}
+
+\subsection{Background projection and HLS - Theory}
+\label{sec:cv_cont_bgp_theory}
+A different algorithm to determine the presence of marbles are contour detection, 
+which here will be discussed performed with HLS conversion and with background projection.\\
+
+While these methods shows great potential for robust detection and localisation of marbles, they are highly dependent on knowing the color of the marbles.
+Since the goal for this project involves solving the problem regardless of the marble color, these algorithms will not be sufficient, 
+yet are discussed with the goal of future implementation with other goals in mind.\\
+
+% First We discuss the Background Projection Methodology
+To perform edge detection by use of HLS conversion, we first convert the image to HLS, representing the Hue, Lightness and Saturation of the image.
+By then going through the image checking each pixel's hue channel, the color of the given pixel can be found. 
+Comparing this value to the threshold representing the known color of the marble, a binary image can be made, and contours can be detected.
+By then applying the contours onto the original image, the contours can be seen by the agent and responded to.\\
+The other method mentioned for determining the whereabouts of the given marbles, 
+is by applying background projection. This method checks for the presence of marbles and crops a region of interest (ROI) being the colored pixels making up the marble.
+This again is dependent on the ability to locate the marble based on color. When the ROI then is found the image then can be converted to binary, by the use of thresholds on the RGB channels for the image. The binary image can then be treated in the same manner as described above, and a contour can be found.\\
+Further use of these methods will be discussed in section \ref{sec:cv_discussion}.
+
+\end{document}

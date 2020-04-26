@@ -1,0 +1,22 @@
+\documentclass[../../../../main.tex]{subfiles}
+\begin{document}
+
+\subsection{Background projection and HLS - Implementation}
+\label{sec:cv_cont_bgp_impl}
+
+
+In this section the implementation details related to the algorithms mentioned in section \ref{sec:cv_cont_bgp_theory} will be described.\\
+\\
+To execute the algorithm using HLS, the OpenCV function \texttt{cvtColor()} which takes the original image,
+the new image and an indicator of the type of conversion wanted. Default inputs are used with the indicator being \texttt{CV\_BGR2HLS}.\\
+Now having converted the image's channels from BGR to HLS, thresholds are applied to determine the pixels with a certain color.\\
+For example red pixel detection would have the threshold interval $[170;10]$, here the order indicates the interval with regards to the circularity of the hue channel in the HLS spectrum.\\
+To apply this threshold the OpenCV function \texttt{threshold()}, which takes the original image, the new image, the lower and upper bound for the threshold and the method used. The bounds are chosen based on the HLS spectrum and method used is \texttt{CV\_THRESH\_BINARY}.\\
+A binary representation of the image has now been found and the OpenCV function \texttt{findContours()} can now find the contours.
+Standard inputs are used when executing this function.\\
+\\
+To now introduce the implementation of background projection, the marble must first be detected using the OpenCV function \texttt{threshold()}. When the marble is detected a fitting ROI is extracted containing the colors of the marble.
+The region as a subpart of the frame from the camera now contains the colors making up the marble surface.
+Based on this, the threshold conversion to binary as described above is applied in conjunction with the \texttt{findContours()} method, the contours are found and placed on the original image.\\
+
+\end{document}
